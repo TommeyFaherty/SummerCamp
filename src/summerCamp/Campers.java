@@ -17,8 +17,8 @@ public class Campers implements Activities{
 	{
 		name = getName();
 		age = getAge();
-		houseNumber = getHouseNumber();
 		gender = getgender();
+		houseNumber = getHouseNumber();
 		numActivities = getNumActivities();
 		activity = activities();
 		activityFee = getActivityFee();
@@ -41,8 +41,77 @@ public class Campers implements Activities{
 	
 	public int getHouseNumber()
 	{
-		System.out.println("Enter house number: ");
+		System.out.println("Enter house number (1-10): ");
 		houseNumber = console.nextInt();
+		String animal = null;
+		
+		//ensure is a real house
+		while(!(houseNumber > 0 && houseNumber < 11))
+		{
+			System.out.println("House numbers are only between 1-10");
+			houseNumber = console.nextInt();
+		}
+		
+		//Ensure gender and hous number match up
+		if(gender.equals("m") || gender.equals("M"))
+		{
+			while(!(houseNumber > 0 && houseNumber < 6))
+			{
+				System.out.println("You have eneterd an all girls house for your male child.\nBoys house numbers are between 1-5");
+				houseNumber = console.nextInt();
+			}
+		}
+		else
+		{
+			while(!(houseNumber > 5 && houseNumber < 11))
+			{
+				System.out.println("You have eneterd an all boys house for your female child.\nGirls house numbers are between 5-10");
+				houseNumber = console.nextInt();
+			}
+		}
+		
+		//Get house animal
+		switch(houseNumber)
+		{
+		case 1: 
+			animal = "Lion";
+			break;
+		case 2: 
+			animal = "Eagal";
+			break;
+		case 3: 
+			animal = "Rhino";
+			break;
+		case 4:
+			animal = "Panda";
+			break;
+		case 5:
+			animal = "Viper";
+			break;
+		case 6: 
+			animal = "Tiger";
+			break;
+		case 7:
+			animal = "koala";
+			break;
+		case 8:
+			animal = "Bear";
+			break;
+		case 9: 
+			animal = "Wolf";
+			break;
+		case 10:
+			animal = "Cheetah";
+			break;	
+		}
+		
+		//Separate boys and girls
+		if(houseNumber >0 && houseNumber <6)
+			System.out.println("Welcome to the all boys house.\nTeam "+animal+", number "+houseNumber);
+		
+		else
+			System.out.println("Welcome to the all girls house.\nTeam "+animal+", number "+houseNumber);
+		
 		return houseNumber;
 	}
 	
@@ -53,7 +122,7 @@ public class Campers implements Activities{
 		
 		while(!gender.equals("m")|| gender.equals("M")||gender.equals("F")||gender.equals("f"))
 		{
-			System.out.println("gender (m=male/f=female): ");
+			System.out.println("Please enter an 'm' or an 'f'.  m=male/f=female ");
 			gender = console.next();
 		}
 		return gender;
@@ -75,45 +144,50 @@ public class Campers implements Activities{
 	public String activities()
 	{
 		String act = null;	
-		for(int i=0; i<numActivities; i++)
-		{
+		
 		System.out.println("Choose activities joined: s-soccer r-rubgy b-basketball\nc-chess g-golf f-frisbee ro-rounders");
-		act = console.next();		
+		System.out.println("1: ");
+		act = console.next();	
 		
-		while(!(act.equals("s")||act.equals("r")||act.equals("b")||act.equals("c")||act.equals("g")||act.equals("f")||act.equals("ro")))
+		for(int i=0; i<numActivities - 1; i++)
 		{
-			System.out.println("Not an activity");
-			System.out.println("Please choose activities joined: s-soccer r-rubgy b-basketball\nc-chess g-golf f-frisbee ro-rounders");
-			act = console.next();	
-		}
-		
-			switch(act)
+			System.out.println(i+2+": ");
+			act = console.next();		
+			
+			while(!(act.equals("s")||act.equals("r")||act.equals("b")||act.equals("c")||act.equals("g")||act.equals("f")||act.equals("ro")))
 			{
-			case "s":
-				act = "Soccer ";
-				break;
-			case "r":
-				act = "Rugby ";
-				break;
-			case "b":
-				act = "basketball ";
-				break;
-			case "c":
-				act = "Chess ";
-				break;
-			case "g":
-				act = "Golf ";
-				break;
-			case "f":
-				act = "Frisbee ";
-				break;
-			case "ro":
-				act = "Rounders";
-				break;
-				
-				default:
-					System.out.println("Not an activity");
+				System.out.println("Not an activity");
+				System.out.println("Activities include: s-soccer r-rubgy b-basketball\nc-chess g-golf f-frisbee ro-rounders");
+				act = console.next();	
+			}
+			
+				switch(act)
+				{
+				case "s":
+					act = "Soccer ";
 					break;
+				case "r":
+					act = "Rugby ";
+					break;
+				case "b":
+					act = "basketball ";
+					break;
+				case "c":
+					act = "Chess ";
+					break;
+				case "g":
+					act = "Golf ";
+					break;
+				case "f":
+					act = "Frisbee ";
+					break;
+				case "ro":
+					act = "Rounders";
+					break;
+					
+					default:
+						System.out.println("Not an activity");
+						break;
 			}
 			
 			activity += act+" ";
