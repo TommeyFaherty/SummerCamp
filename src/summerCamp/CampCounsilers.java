@@ -10,8 +10,16 @@ public class CampCounsilers extends CampWorker {
 	CampCounsilers()
 	{
 		super();
-		houseNumber = getHouseNo();
-		weeklyWage = getWage();
+		if(!(priorYears == 0))
+		{
+			houseNumber = getHouseNo();
+			weeklyWage = getWage();
+		}
+		else
+		{
+			System.out.println("Not applicable for job.");
+		}
+		
 	}
 	
 	//Methods	

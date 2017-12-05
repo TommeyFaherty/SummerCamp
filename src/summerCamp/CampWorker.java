@@ -8,6 +8,7 @@ public abstract class CampWorker {
 	String name;
 	int age;
 	float weeklyWage;
+	int priorYears;
 	
 	Scanner console = new Scanner(System.in);
 	
@@ -16,6 +17,7 @@ public abstract class CampWorker {
 	{
 		name = getName();
 		age = getAge();
+		priorYears = getYears();
 	}
 	
 	//Methods
@@ -24,6 +26,19 @@ public abstract class CampWorker {
 		System.out.println("Enter Name: ");
 		name = console.next();
 		return name;
+	}
+	
+	public int getYears()
+	{
+		System.out.println("Enter number of years experience you have: ");
+		priorYears = console.nextInt();
+
+		if(priorYears < 2)
+		{
+			System.out.println("3 Years is the minimum required experience to work here.");
+			priorYears = 0;
+		}
+		return priorYears;
 	}
 	
 	public int getAge()
@@ -37,6 +52,7 @@ public abstract class CampWorker {
 	{
 		String s;
 		s = "Name: "+name ;
+		s += "\nAge: "+age;
 		return s;
 	}
 	

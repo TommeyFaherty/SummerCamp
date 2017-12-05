@@ -2,7 +2,7 @@ package summerCamp;
 
 import java.util.*;
 
-public class Campers implements Activities{
+public class Campers implements Fees{
 	String name;
 	int houseNumber;
 	String gender = null;
@@ -10,6 +10,7 @@ public class Campers implements Activities{
 	String activity = null;
 	int numActivities;
 	float activityFee;
+	float totalFee;
 	
 	Scanner console = new Scanner(System.in);
 	
@@ -17,11 +18,20 @@ public class Campers implements Activities{
 	{
 		name = getName();
 		age = getAge();
-		gender = getgender();
-		houseNumber = getHouseNumber();
-		numActivities = getNumActivities();
-		activity = activities();
-		activityFee = getActivityFee();
+		if (!(age == 0))
+		{
+			gender = getgender();
+			houseNumber = getHouseNumber();
+			numActivities = getNumActivities();
+			activity = activities();
+			activityFee = getActivityFee();
+			totalFee = getTotalFee();
+		}
+		else
+		{
+			System.out.println("For information on other summer camps, visit our website www.ShineyRivers.com");
+		}
+		
 		
 	}
 	
@@ -36,6 +46,11 @@ public class Campers implements Activities{
 	{
 		System.out.println("Enter age: ");
 		age = console.nextInt();
+		if(age > 15 || age < 6)
+		{
+			System.out.println("Sorry this camp is for ages 6-15 only.");
+			age = 0;
+		}
 		return age;
 	}
 	
@@ -52,7 +67,7 @@ public class Campers implements Activities{
 			houseNumber = console.nextInt();
 		}
 		
-		//Ensure gender and hous number match up
+		//Ensure gender and house number match up
 		if(gender.equals("m") || gender.equals("M"))
 		{
 			while(!(houseNumber > 0 && houseNumber < 6))
@@ -120,7 +135,7 @@ public class Campers implements Activities{
 		System.out.println("gender (m=male/f=female): ");
 		gender = console.next();
 		
-		while(!gender.equals("m")|| gender.equals("M")||gender.equals("F")||gender.equals("f"))
+		while(!(gender.equals("m")|| gender.equals("M")||gender.equals("F")||gender.equals("f")))
 		{
 			System.out.println("Please enter an 'm' or an 'f'.  m=male/f=female ");
 			gender = console.next();
@@ -146,15 +161,14 @@ public class Campers implements Activities{
 		String act = null;	
 		
 		System.out.println("Choose activities joined: s-soccer r-rubgy b-basketball\nc-chess g-golf f-frisbee ro-rounders");
-		System.out.println("1: ");
-		act = console.next();	
-		
-		for(int i=0; i<numActivities - 1; i++)
+
+		for(int i=0; i<numActivities; i++)
 		{
-			System.out.println(i+2+": ");
+			System.out.println(i+1+": ");
 			act = console.next();		
 			
-			while(!(act.equals("s")||act.equals("r")||act.equals("b")||act.equals("c")||act.equals("g")||act.equals("f")||act.equals("ro")))
+			while(!(act.equals("s")||act.equals("r")||act.equals("b")||act.equals("c")||act.equals("g")||act.equals("f")||act.equals("ro")
+					||act.equals("S")||act.equals("R")||act.equals("B")||act.equals("C")||act.equals("G")||act.equals("F")||act.equals("RO")))
 			{
 				System.out.println("Not an activity");
 				System.out.println("Activities include: s-soccer r-rubgy b-basketball\nc-chess g-golf f-frisbee ro-rounders");
@@ -188,8 +202,8 @@ public class Campers implements Activities{
 					default:
 						System.out.println("Not an activity");
 						break;
-			}
-			
+				}
+				
 			activity += act+" ";
 		}
 		
@@ -202,11 +216,25 @@ public class Campers implements Activities{
 		return activityFee;
 	}
 	
+	public float getTotalFee()
+	{
+		totalFee = activityFee+PROVISIONS_FEE+MEDICAL_FEE+CAMPHOUSE_FEE;
+		return totalFee;
+	}
+	
 	public String display()
 	{
 		String s;
-		s= "name "+name+ "\nAge "+age+"House Number "+houseNumber+"\ngender "+gender+"\nNum Act "+numActivities+"\nactivity "+activity
-				+"\nactivity Fee: "+activityFee;
+		if(!(age == 0)) 
+		{
+		s= "Name: "+name+ "\nAge: "+age+"\nHouse Number: "+houseNumber+"\nGender: "+gender+"\nNumber of Activities: "
+		+numActivities+"\nActivities : "+activity
+				+"\nActivity Fee: "+activityFee+"\nTotal Fee: "+ totalFee;
+		}
+		else
+		{
+			s = "Have a nice day!";
+		}
 		return s;
 	}
 	
